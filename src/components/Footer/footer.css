@@ -1,0 +1,38 @@
+.social-icons {
+    font-size: 22px;
+    cursor: pointer;
+    float: right;
+    padding: 0.5rem 0.7rem;
+}
+
+.icon-style {
+    opacity: 0.8;
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.icon-style:hover {
+    color: #fec503 !important;
+}
+
+.copyright-text {
+    float: left;
+    opacity: 0.8;
+    margin: 1rem !important;
+}
+
+@media screen and (max-width: 500px) {
+    .copyright-text {
+        float: none;
+        margin: 0.7rem !important;
+    }
+
+    .social-icons {
+        float: none;
+    }
+
+    .social-icons {
+        padding: 0 0 0.5rem 0 !important;
+    }
+}

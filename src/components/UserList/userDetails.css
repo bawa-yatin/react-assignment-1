@@ -1,0 +1,28 @@
+.clear_btn, .clear_btn:link, .clear_btn:visited {
+    padding: 13px;
+    border: 1px solid #333;
+    color: #333;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 3px;
+    transition: all .2s ease-in-out;
+    
+  }
+
+  .clear_btn:hover {
+    background-color: #333;
+    border: 1px solid #333;
+    color: #fefefe;
+    border-radius: 30px;
+  }
+
+  .card-space {
+    padding: 3.5rem 0 7.8rem 0;
+  }
+
+  .msg-space {
+    padding: 5rem 0 20.3rem 0;
+  }
+  
+  
