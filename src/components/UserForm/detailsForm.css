@@ -1,4 +1,4 @@
-.contact {
+/* .contact {
 	background-color: #dbe2e8;
 	font-family: "Oswald", sans-serif;
 	padding-top: 50px;
@@ -16,7 +16,7 @@
 	margin-bottom: 17px;
 	text-transform: uppercase;
   font-weight: 700;
-  font-size: 55px;
+  font-size: 60px;
 }
 
 .section-contact .header-section .description {
@@ -29,7 +29,7 @@
   bottom: 100%;
   left: 50%;
   transform: translate(-50%,70%);
-  font-size: 120px;
+  font-size: 110px;
   font-weight: 700;
   opacity: 0.15;
 }
@@ -128,4 +128,117 @@
 	.section-contact .header-section .big-title {
 		font-size: 100px;
 	}
+} */
+
+.form-body {
+	background-color: #152733;
+	overflow: hidden;
 }
+
+.form-holder {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	min-height: 100vh;
+}
+
+.form-holder .form-content {
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+}
+
+.form-content .form-items {
+  border: 3px solid #fff;
+  padding: 40px;
+  display: inline-block;
+  width: 100%;
+  min-width: 700px;
+  border-radius: 10px;
+  text-align: left;
+  transition: all 0.4s ease;
+}
+
+@media screen and (max-width: 500px) {
+	.form-items {
+		min-width: none;
+	}
+}
+
+.form-content h3 {
+  color: #fff;
+  text-align: left;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-content h3.form-title {
+  margin-bottom: 30px;
+}
+
+.form-content p {
+  color: #fff;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 20px;
+  margin-bottom: 30px;
+}
+
+
+.form-content label, .was-validated .form-check-input:invalid~.form-check-label, .was-validated .form-check-input:valid~.form-check-label{
+  color: #fff;
+}
+
+.form-content input[type=text], .form-content input[type=password], .form-content input[type=email], .form-content select {
+  width: 100%;
+  padding: 9px 12px;
+  text-align: left;
+  border: 0;
+  outline: 0;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 15px;
+  font-weight: 300;
+  color: #000;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+
+.btn-primary{
+  background-color: #6C757D;
+  outline: none;
+  border: 0px;
+   box-shadow: none;
+}
+
+.form-content textarea {
+  position: static !important;
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-align: left;
+  background-color: #fff;
+  border: 0;
+  font-size: 15px;
+  color: #000;
+  outline: none;
+  resize: none;
+  height: 120px;
+  transition: none;
+  margin-bottom: 14px;
+  font-weight: bold;
+}
+
+::placeholder { 
+	color: #000 !important;
+	opacity: 1;
+	font-weight: bold;
+  }

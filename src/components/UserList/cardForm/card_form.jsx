@@ -61,13 +61,16 @@ function CardForm(props) {
             <span style={{ marginLeft: "10px" }}>{modalInfo.address}</span>
           </p>
         </Modal.Body>
-        <Modal.Footer>
-          <button className="bg-success" onClick={handleClose}>
-            Close
-          </button>
-        </Modal.Footer>
       </Modal>
     );
+  };
+
+  const itemSelect = (index) => {
+    // console.log(index);
+
+    userList.splice(index, 1);
+    localStorage.setItem("data", JSON.stringify(userList));
+    navigate("/userlist");
   };
 
   const handleOnClear = () => {
@@ -87,7 +90,7 @@ function CardForm(props) {
           No user messages as of now!
         </h1>
       ) : (
-        <div className="form-check form-switch">
+        <div className="form-check form-switch" style={{ float: "right" }}>
           <input
             className="form-check-input"
             type="checkbox"
@@ -95,41 +98,130 @@ function CardForm(props) {
             id="flexSwitchCheckChecked"
             onClick={toggler}
           />
+          <span className="text-white fw-bold">Switch to Table Layout!</span>
         </div>
       )}
       {toggle ? (
-        <span className="text-white">Changed</span>
+        <div
+          className="row pt-3 pb-5"
+          style={{ width: "100%", marginLeft: "0" }}
+        >
+          {userList.length != 0 ? (
+            <h3 className="text-center text-white">
+              <u>Table Layout</u>
+            </h3>
+          ) : (
+            ""
+          )}
+          <div className="col-12 mt-5">
+            <table className="table table-light table-striped table-hover">
+              <thead>
+                <tr>
+                  <th className="text-start" scope="col">
+                    SR No.
+                  </th>
+                  <th className="text-start" scope="col">
+                    Name
+                  </th>
+                  <th className="text-start" scope="col">
+                    Date
+                  </th>
+                  <th className="text-start" scope="col">
+                    Gender
+                  </th>
+                  <th className="text-start" scope="col">
+                    Address
+                  </th>
+                  <th className="text-start" scope="col">
+                    Short Bio
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {userList.map((user, index) => {
+                  return (
+                    <tr
+                      onClick={() => {
+                        rowSelect(index);
+                      }}
+                      className="row-click text-start"
+                      id={index + 1}
+                      key={index + 1}
+                    >
+                      <th scope="row">{index + 1}</th>
+                      <td>{user.name}</td>
+                      <td>{user.date}</td>
+                      <td>{user.gender}</td>
+                      <td>{user.address}</td>
+                      <td>{user.shortbio}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {show ? <ModalContent /> : null}
+        </div>
       ) : (
-        <div className="row card-space">
+        <div
+          className="row pt-3 pb-5"
+          style={{ width: "100%", marginLeft: "0" }}
+        >
+          {userList.length != 0 ? (
+            <h3 className="text-center text-white">
+              <u>Card Layout</u>
+            </h3>
+          ) : (
+            ""
+          )}
           {userList.map((user, index) => (
             <div
               className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12-4 mt-4"
               key={index}
-              id={index}
-              onClick={() => {
-                rowSelect(index);
-              }}
+              // style={{ marginRight: "1rem" }}
             >
-              <div className="card">
-                <div className="card-body">
+              <div
+                className="card"
+                id={index}
+                onClick={() => {
+                  rowSelect(index);
+                }}
+                style={{ border: "none" }}
+              >
+                <div className="card-body text-start">
                   <h4 className="card-title mb-3">
                     <i className="fa fa-user"></i>
                     <span style={style}>{user.name}</span>
                   </h4>
                   <h6 className="card-subtitle mb-2">
-                    <i className="fa fa-envelope"></i>
-                    <span style={style}>{user.email}</span>
+                    <i className="fa fa-birthday-cake"></i>
+                    <span style={style}>{user.date}</span>
                   </h6>
-                  <p className="card-text mb-2">
-                    <i className="fa fa-phone"></i>
-                    <span style={style}>{user.phone_number}</span>
-                  </p>
-                  <p className="card-text">
-                    <i className="fa fa-commenting"></i>
-                    <span style={style}>{user.message}</span>
-                  </p>
+                  <h6 className="card-text mb-2">
+                    <i className="fa fa-user-circle"></i>
+                    <span style={style}>{user.gender}</span>
+                  </h6>
+                  <h6 className="card-text mb-2">
+                    <i className="fa fa-address-card"></i>
+                    <span style={style}>{user.address}</span>
+                  </h6>
+                  <h6 className="card-text mb-4">
+                    <i className="fa fa-text-width"></i>
+                    <span style={style}>{user.shortbio}</span>
+                  </h6>
                 </div>
               </div>
+              <h6
+                className="text-start mb-3 text-white mt-2"
+                onClick={() => {
+                  itemSelect(index);
+                }}
+                style={{ cursor: "pointer" }}
+              >
+                <i className="fa fa-trash"></i>
+                <span style={style}>Delete Item?</span>
+              </h6>
             </div>
           ))}
           {show ? <ModalContent /> : null}

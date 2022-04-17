@@ -14,7 +14,7 @@ function UserList(props) {
     <section id="projects" style={{ backgroundColor: "#0a2b3c" }}>
       <div className="container">
         <div className="">
-          <h1 className="text-center text-white text-underline pt-5">
+          <h1 className="text-center text-white text-underline py-4">
             <u>{props.title}</u>
           </h1>
 
