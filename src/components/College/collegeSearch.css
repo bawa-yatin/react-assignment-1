@@ -1,0 +1,32 @@
+.bg-color {
+    background: #dbe2e8;
+    /* height: 560px; */
+}
+
+
+.clg-header{
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+  
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+  
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.row-click:hover{
+    cursor: pointer;
+    background-color: darkgray;
+}

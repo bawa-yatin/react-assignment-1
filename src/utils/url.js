@@ -1,1 +1,1 @@
-export const baseURL = `https://api.first.org/data/v1/countries?region=`;
+export const baseURL = `http://universities.hipolabs.com/search?name=`;

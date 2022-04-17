@@ -18,8 +18,10 @@ function UserList(props) {
             <u>{props.title}</u>
           </h1>
 
-          {user_details.length == 0 ? (
-            <h1 className="text-white msg-space">
+          <CardForm />
+
+          {/* {user_details.length == 0 ? (
+            <h1 className="text-white msg-space p-5">
               No user messages as of now!
             </h1>
           ) : (
@@ -33,7 +35,7 @@ function UserList(props) {
               />
             </div>
           )}
-          {toggle ? <span className="text-white">Changed</span> : <CardForm />}
+          {toggle ? <span className="text-white">Changed</span> : <CardForm />} */}
         </div>
       </div>
     </section>
