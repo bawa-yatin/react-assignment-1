@@ -49,16 +49,30 @@ function CardForm(props) {
         <Modal.Body>
           <h5>User Details</h5>
           <p className="mb-2">
-            <i className="fa fa-envelope"></i>
-            <span style={{ marginLeft: "10px" }}>{modalInfo.email}</span>
+            <i className="fa fa-address-card"></i>
+            <span style={{ marginLeft: "10px" }}>{modalInfo.address}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-phone"></i>
-            <span style={{ marginLeft: "10px" }}>{modalInfo.phone_number}</span>
+            <i className="fa fa-birthday-cake"></i>
+            <span style={{ marginLeft: "10px" }}>{modalInfo.date}</span>
           </p>
           <p className="mb-2">
             <i className="fa fa-address-card"></i>
-            <span style={{ marginLeft: "10px" }}>{modalInfo.address}</span>
+            <span style={{ marginLeft: "10px" }}>{modalInfo.gender}</span>
+          </p>
+          <hr />
+          <h5>Other Details</h5>
+          <p className="mb-2">
+            <i className="fa fa-address-card"></i>
+            <span style={{ marginLeft: "10px" }}>{modalInfo.college}</span>
+          </p>
+          <p className="mb-2">
+            <i className="fa fa-birthday-cake"></i>
+            <span style={{ marginLeft: "10px" }}>{modalInfo.shortbio}</span>
+          </p>
+          <p className="mb-2">
+            <i className="fa fa-address-card"></i>
+            <span style={{ marginLeft: "10px" }}>{modalInfo.longbio}</span>
           </p>
         </Modal.Body>
       </Modal>
@@ -66,15 +80,13 @@ function CardForm(props) {
   };
 
   const itemSelect = (index) => {
-    // console.log(index);
-
+    // alert("Hello");
     userList.splice(index, 1);
     localStorage.setItem("data", JSON.stringify(userList));
     navigate("/userlist");
   };
 
   const handleOnClear = () => {
-    // setUserList([]);
     localStorage.setItem("data", JSON.stringify([]));
     navigate("/userlist");
   };
@@ -135,6 +147,9 @@ function CardForm(props) {
                   <th className="text-start" scope="col">
                     Short Bio
                   </th>
+                  <th className="text-start" scope="col">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -154,6 +169,13 @@ function CardForm(props) {
                       <td>{user.gender}</td>
                       <td>{user.address}</td>
                       <td>{user.shortbio}</td>
+                      <td
+                        onClick={() => {
+                          itemSelect(index);
+                        }}
+                      >
+                        <i className="fa fa-trash"></i>
+                      </td>
                     </tr>
                   );
                 })}
@@ -206,7 +228,11 @@ function CardForm(props) {
                     <i className="fa fa-address-card"></i>
                     <span style={style}>{user.address}</span>
                   </h6>
-                  <h6 className="card-text mb-4">
+                  <h6 className="card-text mb-2">
+                    <i class="fa fa-graduation-cap"></i>
+                    <span style={style}>{user.college}</span>
+                  </h6>
+                  <h6 className="card-text">
                     <i className="fa fa-text-width"></i>
                     <span style={style}>{user.shortbio}</span>
                   </h6>

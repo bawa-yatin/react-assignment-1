@@ -1,7 +1,7 @@
 // Contact Section
 import { React, useEffect, useState } from "react";
 import "./detailsForm.css";
-import * as services from "../../services";
+import * as services from "../../services/dropdown";
 
 function DetailsForm(props) {
   const [name, setname] = useState("");
@@ -10,57 +10,46 @@ function DetailsForm(props) {
   const [gender, setgender] = useState("");
   const [shortbio, setshortbio] = useState("");
   const [longbio, setlongbio] = useState("");
+  const [selected, setSelected] = useState("");
+  const [college, setCollege] = useState("");
   // const [success_msg, setSuccessMsg] = useState("");
 
-  // const [selected, setSelected] = useState("");
-  // let type = null;
+  let all_colleges = [];
+  let options = null;
 
-  // /** This will be used to create set of options that user will see */
-  // let options = null;
+  // For retrieving colleges based on country selected
+  const changeSelectOptionHandler = (event) => {
+    services
+      .getCollegesDropdown(event.target.value, "")
+      .then((response) => {
+        let res = response.data;
+        res.map((result) => {
+          all_colleges.push(result.name);
+        });
+        setSelected(all_colleges);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
-  // const changeSelectOptionHandler = (event) => {
-  //   // setSelected(event.target.value);
-
-  //   services
-  //     .getCollegesAPI(event.target.value, "")
-  //     .then((response) => {
-  //       console.log(response.data);
-  //       // type = response.data;
-  //       setSelected(response.data);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
-
-  // const algorithm = [
-  //   "Searching Algorithm",
-  //   "Sorting Algorithm",
-  //   "Graph Algorithm",
-  // ];
-  // const language = ["C++", "Java", "Python", "C#"];
-  // const dataStructure = ["Arrays", "LinkedList", "Stack", "Queue"];
-
-  /** Setting Type variable according to dropdown */
-  // if (selected === "Algorithm") {
-  //   type = algorithm;
-  // } else if (selected === "Language") {
-  //   type = language;
-  // } else if (selected === "Data Structure") {
-  //   type = dataStructure;
-  // }
-
-  // if (type) {
-  //   options = type.map((el) => <option key={el}>{el}</option>);
-  // }
+  if (selected) {
+    options = selected.map((el, index) => (
+      <option key={index} value={el}>
+        {el}
+      </option>
+    ));
+  }
 
   const setEmpty = () => {
     setname("");
     setdate("");
     setaddress("");
-    setgender("Default");
+    setgender("");
     setshortbio("");
     setlongbio("");
+    setSelected("");
+    setCollege("");
   };
 
   const setLocalstorage = (ele) => {
@@ -86,6 +75,7 @@ function DetailsForm(props) {
       gender: gender,
       shortbio: shortbio,
       longbio: longbio,
+      college: college,
     };
     setEmpty();
     setLocalstorage(user);
@@ -149,7 +139,7 @@ function DetailsForm(props) {
                     onChange={(e) => setgender(e.target.value)}
                     required
                   >
-                    <option selected disabled value="">
+                    <option selected disabled value={""}>
                       Gender
                     </option>
                     <option value="Male">Male</option>
@@ -189,21 +179,21 @@ function DetailsForm(props) {
                 </div>
 
                 <div className="col-md-12">
-                  {/* <select onChange={changeSelectOptionHandler}> */}
-                  <select>
-                    <option>Choose...</option>
+                  <select onChange={changeSelectOptionHandler} required>
+                    <option value={""}>Choose a Country</option>
                     <option>Jordan</option>
                     <option>Turkey</option>
                     <option>USA</option>
+                    <option>United Kingdom</option>
                   </select>
                 </div>
 
-                {/* <div className="col-md-12">
-                  <select>
-                    <option>Choose...</option>
+                <div className="col-md-12">
+                  <select onChange={(e) => setCollege(e.target.value)} required>
+                    <option value={""}>Choose a college</option>
                     {options}
                   </select>
-                </div> */}
+                </div>
 
                 <div className="form-button mt-3">
                   <button id="submit" type="submit" className="btn btn-primary">
