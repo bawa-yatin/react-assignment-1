@@ -15,13 +15,15 @@ function DetailsForm(props) {
   let [college, setCollege] = useState("");
   const [userinfo, setUserInfo] = useState({
     languages: [],
+    response: [],
   });
   const [checked, setChecked] = useState(false);
-  const [other, setOther] = useState("");
   const [success_msg, setSuccessMsg] = useState("");
 
   let all_colleges = [];
   let options = null;
+
+  // let id = 1;
 
   // For retrieving colleges based on country selected
   const changeSelectOptionHandler = (event) => {
@@ -57,6 +59,7 @@ function DetailsForm(props) {
     if (checked) {
       setUserInfo({
         languages: [...languages, value],
+        response: [...languages, value],
       });
     }
 
@@ -64,21 +67,24 @@ function DetailsForm(props) {
     else {
       setUserInfo({
         languages: languages.filter((e) => e !== value),
+        response: languages.filter((e) => e !== value),
       });
     }
   };
 
   // For handling input from "others" checkbox
   const handleInput = (e) => {
-    const { value } = e.target;
-    // const { languages } = userinfo;
-    // setUserInfo({
-    //   languages: [...languages, value],
-    //   response: [...languages, value],
-    // });
+    const input_val = e.target.value;
+    const { languages } = userinfo;
+    setUserInfo({
+      languages: [...languages, input_val],
+      response: [...languages, input_val],
+    });
   };
 
   const setEmpty = () => {
+    // setId([...id, id + 1]);
+    // id++;
     setname("");
     setdate("");
     setaddress("");
@@ -106,7 +112,6 @@ function DetailsForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(other);
     var user = {
       // id: id,
       name: name,
@@ -126,7 +131,7 @@ function DetailsForm(props) {
     <div className="form-body">
       <div className="row">
         <div className="form-holder">
-          <div className="form-content">
+          <div className="form-content p-5">
             <div className="form-items">
               {!!success_msg ? (
                 <div className="alert alert-success p-2 mb-5" role="alert">
@@ -606,8 +611,7 @@ function DetailsForm(props) {
                           className="inputRequest formContentElement"
                           name="token"
                           type="text"
-                          value={other}
-                          onChange={(e) => setOther(e.target.value)}
+                          onChange={handleInput}
                         />
                       ) : (
                         <div></div>

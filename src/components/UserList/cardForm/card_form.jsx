@@ -5,6 +5,11 @@ import "./card_form.css";
 
 function CardForm(props) {
   let userList = JSON.parse(localStorage.getItem("data") || "[]");
+  const sorted_data = userList.sort(function (x, y) {
+    return x == y ? 0 : x > y ? 1 : -1;
+  });
+  console.log(sorted_data);
+
   const navigate = useNavigate();
 
   // Switch Button
@@ -49,7 +54,7 @@ function CardForm(props) {
         <Modal.Body>
           <h5>User Details</h5>
           <p className="mb-2">
-            <i className="fa fa-address-card"></i>
+            <i class="fa fa-location-arrow"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.address}</span>
           </p>
           <p className="mb-2">
@@ -57,17 +62,23 @@ function CardForm(props) {
             <span style={{ marginLeft: "10px" }}>{modalInfo.date}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-address-card"></i>
+            <i class="fa fa-user-circle-o"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.gender}</span>
           </p>
+          {/* <p className="mb-2">
+            <i class="fa fa-cc"></i>
+            <span style={{ marginLeft: "10px" }}>
+              {modalInfo.userinfo.languages.join(", ")}
+            </span>
+          </p> */}
           <hr />
           <h5>Other Details</h5>
           <p className="mb-2">
-            <i className="fa fa-address-card"></i>
+            <i class="fa fa-graduation-cap"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.college}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-birthday-cake"></i>
+            <i class="fa fa-id-card-o"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.shortbio}</span>
           </p>
           <p className="mb-2">
@@ -114,41 +125,30 @@ function CardForm(props) {
       )}
       {toggle ? (
         <div
-          className="row pt-4 pb-5"
+          className="row pt-3 pb-5"
           style={{ width: "100%", marginLeft: "0" }}
         >
           {userList.length != 0 ? (
-            <h3 className="text-center text-white">
+            <h3 className="text-center text-white mb-4">
               <u>Table Layout</u>
             </h3>
           ) : (
             ""
           )}
-          <div className="col-12 mt-5">
-            <table className="table table-light table-striped table-hover">
-              <thead>
-                <tr>
-                  <th className="text-start" scope="col">
-                    SR No.
-                  </th>
-                  <th className="text-start" scope="col">
-                    Name
-                  </th>
-                  <th className="text-start" scope="col">
-                    Date
-                  </th>
-                  <th className="text-start" scope="col">
-                    Gender
-                  </th>
-                  <th className="text-start" scope="col">
-                    Address
-                  </th>
-                  <th className="text-start" scope="col">
-                    Short Bio
-                  </th>
-                  <th className="text-start" scope="col">
-                    Action
-                  </th>
+          <div
+            class="container table-responsive"
+            style={{ paddingLeft: "0px" }}
+          >
+            <table class="table table-striped table-hover table-light">
+              <thead class="">
+                <tr className="text-start">
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Gender</th>
+                  <th scope="col">Address</th>
+                  <th scope="col">College</th>
+                  {/* <th scope="col">Hobbies</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -167,14 +167,15 @@ function CardForm(props) {
                       <td>{user.date}</td>
                       <td>{user.gender}</td>
                       <td>{user.address}</td>
-                      <td>{user.shortbio}</td>
-                      <td
+                      <td>{user.college}</td>
+                      {/* <td>{user.userinfo.languages.join(", ")}</td> */}
+                      {/* <td
                         onClick={() => {
                           itemSelect(index);
                         }}
                       >
                         <i className="fa fa-trash"></i>
-                      </td>
+                      </td> */}
                     </tr>
                   );
                 })}
@@ -183,6 +184,20 @@ function CardForm(props) {
           </div>
 
           {show ? <ModalContent /> : null}
+
+          {userList.length != 0 ? (
+            <button
+              type="button"
+              className="clear_btn mt-3"
+              onClick={() => {
+                handleOnClear();
+              }}
+            >
+              Clear Data
+            </button>
+          ) : (
+            ""
+          )}
         </div>
       ) : (
         <div
@@ -228,13 +243,15 @@ function CardForm(props) {
                     <span style={style}>{user.address}</span>
                   </h6>
                   <h6 className="card-text mb-2">
-                    <i class="fa fa-graduation-cap"></i>
+                    <i className="fa fa-graduation-cap"></i>
                     <span style={style}>{user.college}</span>
                   </h6>
-                  <h6 className="card-text">
-                    <i className="fa fa-text-width"></i>
-                    <span style={style}>{user.shortbio}</span>
-                  </h6>
+                  {/* <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
+                    <i class="fa fa-cc"></i>
+                    <span style={style}>
+                      {user.userinfo.languages.join(", ")}
+                    </span>
+                  </h6> */}
                 </div>
               </div>
               <h6

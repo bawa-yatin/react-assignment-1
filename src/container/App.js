@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar />
+        <Navbar app_name="User Domain" />
         <Routes>
           <Route
             path="/"
