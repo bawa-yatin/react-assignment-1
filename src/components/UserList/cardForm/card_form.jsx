@@ -1,7 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
-import { Button } from "bootstrap";
+import "./card_form.css";
 
 function CardForm(props) {
   let userList = JSON.parse(localStorage.getItem("data") || "[]");
@@ -80,7 +80,6 @@ function CardForm(props) {
   };
 
   const itemSelect = (index) => {
-    // alert("Hello");
     userList.splice(index, 1);
     localStorage.setItem("data", JSON.stringify(userList));
     navigate("/userlist");
@@ -102,7 +101,7 @@ function CardForm(props) {
           No user messages as of now!
         </h1>
       ) : (
-        <div className="form-check form-switch" style={{ float: "right" }}>
+        <div className="form-check form-switch">
           <input
             className="form-check-input"
             type="checkbox"
@@ -115,7 +114,7 @@ function CardForm(props) {
       )}
       {toggle ? (
         <div
-          className="row pt-3 pb-5"
+          className="row pt-4 pb-5"
           style={{ width: "100%", marginLeft: "0" }}
         >
           {userList.length != 0 ? (
@@ -187,7 +186,7 @@ function CardForm(props) {
         </div>
       ) : (
         <div
-          className="row pt-3 pb-5"
+          className="row pt-4 pb-5"
           style={{ width: "100%", marginLeft: "0" }}
         >
           {userList.length != 0 ? (

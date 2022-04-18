@@ -3,39 +3,18 @@ import CardForm from "./cardForm/card_form";
 import "./userDetails.css";
 
 function UserList(props) {
-  let user_details = JSON.parse(localStorage.getItem("data") || "[]");
-  const [toggle, setToggle] = useState(false);
-
-  const toggler = () => {
-    toggle ? setToggle(false) : setToggle(true);
-  };
-
   return (
     <section id="projects" style={{ backgroundColor: "#0a2b3c" }}>
       <div className="container">
         <div className="">
-          <h1 className="text-center text-white text-underline py-4">
+          <h1
+            className="text-center text-white text-underline"
+            style={{ padding: "20px 0 12px 0" }}
+          >
             <u>{props.title}</u>
           </h1>
 
           <CardForm />
-
-          {/* {user_details.length == 0 ? (
-            <h1 className="text-white msg-space p-5">
-              No user messages as of now!
-            </h1>
-          ) : (
-            <div className="form-check form-switch">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="flexSwitchCheckChecked"
-                onClick={toggler}
-              />
-            </div>
-          )}
-          {toggle ? <span className="text-white">Changed</span> : <CardForm />} */}
         </div>
       </div>
     </section>

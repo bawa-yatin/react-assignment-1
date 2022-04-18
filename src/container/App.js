@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar/navbar";
 import DetailsForm from "../components/UserForm/detailsForm";
 import UserList from "../components/UserList/userDetails";
 import CollegeList from "../components/College/collegeSearch";
-import CascadingDropdown from "../components/dropdown";
 // import Footer from "../components/Footer/footer";
 
 function App() {
@@ -26,7 +25,6 @@ function App() {
 
           <Route path={"*"} element={<Navigate replace to={"/"} />} />
         </Routes>
-        {/* <CascadingDropdown /> */}
       </BrowserRouter>
     </div>
   );
