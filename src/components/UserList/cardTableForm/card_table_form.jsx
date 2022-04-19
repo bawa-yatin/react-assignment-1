@@ -45,6 +45,7 @@ function CardTabelForm(props) {
         centered
         show={show}
         onHide={handleClose}
+        backdrop="static"
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">

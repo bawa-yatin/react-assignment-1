@@ -42,6 +42,7 @@ function CollegeTable(props) {
         onClose={() => {
           setOpen(false);
         }}
+        disableBackdropClick
       >
         <div className="p-4" style={{ width: "500px" }}>
           <div>
