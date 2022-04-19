@@ -1,5 +1,7 @@
+// College Table Section
+
 import { Dialog, Button, DialogActions } from "@material-ui/core";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function CollegeTable(props) {
   const [dialogOpen, setOpen] = useState(false);
@@ -47,14 +49,14 @@ function CollegeTable(props) {
             <hr />
           </div>
           <div>
-            <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+            <i className="fa fa-graduation-cap" aria-hidden="true"></i>
             <h5 style={{ display: "inline-block", marginLeft: "10px" }}>
               {college.name}
             </h5>
           </div>
           <div>
             <i
-              class="fa fa-map-marker"
+              className="fa fa-map-marker"
               style={{ marginLeft: "6px" }}
               aria-hidden="true"
             ></i>

@@ -4,7 +4,6 @@ import "./detailsForm.css";
 import * as services from "../../services/dropdown";
 
 function DetailsForm(props) {
-  // let [id, setId] = useState(1);
   let [name, setname] = useState("");
   let [date, setdate] = useState("");
   let [address, setaddress] = useState("");
@@ -13,11 +12,9 @@ function DetailsForm(props) {
   let [longbio, setlongbio] = useState("");
   let [selected, setSelected] = useState("");
   let [college, setCollege] = useState("");
-  const [userinfo, setUserInfo] = useState({
-    languages: [],
-  });
   const [checked, setChecked] = useState(false);
-  const [other, setOther] = useState("");
+  const [hobbies, setHobbies] = useState([]);
+  const [extra, setExtra] = useState("");
   const [success_msg, setSuccessMsg] = useState("");
 
   let all_colleges = [];
@@ -47,35 +44,20 @@ function DetailsForm(props) {
     ));
   }
 
-  // For handling the checked values
-  const handleChange = (e) => {
-    // Destructuring
+  const handleHobbies = (e) => {
     const { value, checked } = e.target;
-    const { languages } = userinfo;
-
-    // Case 1 : The user checks the box
     if (checked) {
-      setUserInfo({
-        languages: [...languages, value],
-      });
-    }
-
-    // Case 2  : The user unchecks the box
-    else {
-      setUserInfo({
-        languages: languages.filter((e) => e !== value),
-      });
+      setHobbies([...hobbies, value]);
+    } else {
+      setHobbies(hobbies.filter((hobbie) => hobbie !== value));
     }
   };
 
   // For handling input from "others" checkbox
   const handleInput = (e) => {
     const { value } = e.target;
-    // const { languages } = userinfo;
-    // setUserInfo({
-    //   languages: [...languages, value],
-    //   response: [...languages, value],
-    // });
+    setExtra(value);
+    setHobbies([...hobbies, extra]);
   };
 
   const setEmpty = () => {
@@ -87,7 +69,7 @@ function DetailsForm(props) {
     setlongbio("");
     setSelected("");
     setCollege("");
-    setUserInfo({});
+    setHobbies([]);
   };
 
   const setLocalstorage = (ele) => {
@@ -106,9 +88,7 @@ function DetailsForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(other);
     var user = {
-      // id: id,
       name: name,
       date: date,
       address: address,
@@ -116,7 +96,7 @@ function DetailsForm(props) {
       shortbio: shortbio,
       longbio: longbio,
       college: college,
-      userinfo: userinfo,
+      hobbies: hobbies,
     };
     setEmpty();
     setLocalstorage(user);
@@ -538,7 +518,7 @@ function DetailsForm(props) {
                         name="hobbies"
                         id="inlineCheckbox1"
                         value="Reading"
-                        onChange={handleChange}
+                        onChange={handleHobbies}
                       />
                       <label className="form-check-label" for="inlineCheckbox1">
                         Reading
@@ -552,7 +532,7 @@ function DetailsForm(props) {
                         name="hobbies"
                         id="inlineCheckbox1"
                         value="Gaming"
-                        onChange={handleChange}
+                        onChange={handleHobbies}
                       />
                       <label className="form-check-label" for="inlineCheckbox1">
                         Gaming
@@ -566,7 +546,7 @@ function DetailsForm(props) {
                         name="hobbies"
                         id="inlineCheckbox1"
                         value="Travelling"
-                        onChange={handleChange}
+                        onChange={handleHobbies}
                       />
                       <label className="form-check-label" for="inlineCheckbox1">
                         Travelling
@@ -580,10 +560,38 @@ function DetailsForm(props) {
                         name="hobbies"
                         id="inlineCheckbox1"
                         value="Drawing"
-                        onChange={handleChange}
+                        onChange={handleHobbies}
                       />
                       <label className="form-check-label" for="inlineCheckbox1">
                         Drawing
+                      </label>
+                    </div>
+
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="hobbies"
+                        id="inlineCheckbox1"
+                        value="Gardening"
+                        onChange={handleHobbies}
+                      />
+                      <label className="form-check-label" for="inlineCheckbox1">
+                        Gardening
+                      </label>
+                    </div>
+
+                    <div className="form-check form-check-inline">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        name="hobbies"
+                        id="inlineCheckbox1"
+                        value="Cycling"
+                        onChange={handleHobbies}
+                      />
+                      <label className="form-check-label" for="inlineCheckbox1">
+                        Cycling
                       </label>
                     </div>
 
@@ -594,20 +602,28 @@ function DetailsForm(props) {
                         name="hobbies"
                         id="inlineCheckbox1"
                         value="Other"
-                        // onChange={handleChange}
                         onChange={() => setChecked(!checked)}
                         checked={checked}
                       />
                       <label className="form-check-label" for="inlineCheckbox1">
                         Other
                       </label>
+
+                      {/* <input
+                        className="inputRequest formContentElement"
+                        id="other_text"
+                        name="token"
+                        type="text"
+                        onChange={handleHobbies}
+                        style={{ display: "none" }}
+                      /> */}
+
                       {checked ? (
                         <input
                           className="inputRequest formContentElement"
                           name="token"
                           type="text"
-                          value={other}
-                          onChange={(e) => setOther(e.target.value)}
+                          onChange={handleInput}
                         />
                       ) : (
                         <div></div>

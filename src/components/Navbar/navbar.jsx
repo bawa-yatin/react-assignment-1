@@ -14,7 +14,7 @@ function Navbar(props) {
       <div className="container-fluid">
         <Link to="#" className="navbar-brand ml-5 h6" style={style}>
           <i
-            class="fa fa-users"
+            className="fa fa-users"
             aria-hidden="true"
             style={{ marginRight: "10px" }}
           ></i>

@@ -1,5 +1,5 @@
 import { React, useEffect, useState } from "react";
-import CardForm from "./cardForm/card_form";
+import CardTabelForm from "./cardTableForm/card_table_form";
 import "./userDetails.css";
 
 function UserList(props) {
@@ -14,7 +14,7 @@ function UserList(props) {
             <u>{props.title}</u>
           </h1>
 
-          <CardForm />
+          <CardTabelForm />
         </div>
       </div>
     </section>

@@ -6,7 +6,6 @@ import Navbar from "../components/Navbar/navbar";
 import DetailsForm from "../components/UserForm/detailsForm";
 import UserList from "../components/UserList/userDetails";
 import CollegeList from "../components/College/collegeSearch";
-// import Footer from "../components/Footer/footer";
 
 function App() {
   return (

@@ -1,14 +1,14 @@
-import { React, useEffect, useState } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
-import "./card_form.css";
+import "./card_table_form.css";
 
-function CardForm(props) {
+function CardTabelForm(props) {
   let userList = JSON.parse(localStorage.getItem("data") || "[]");
-  const sorted_data = userList.sort(function (x, y) {
+  // Sorting data in descending order
+  userList.sort(function (x, y) {
     return x == y ? 0 : x > y ? 1 : -1;
   });
-  console.log(sorted_data);
 
   const navigate = useNavigate();
 
@@ -23,7 +23,6 @@ function CardForm(props) {
   const handleShow = () => setShow(true);
 
   const rowSelect = (index) => {
-    // console.log(index);
     setModalInfo(userList[index]);
     toogleTrueFalse();
   };
@@ -37,6 +36,7 @@ function CardForm(props) {
     toggle ? setToggle(false) : setToggle(true);
   };
 
+  // Method for handling and displaying Modal Content
   const ModalContent = () => {
     return (
       <Modal
@@ -54,7 +54,7 @@ function CardForm(props) {
         <Modal.Body>
           <h5>User Details</h5>
           <p className="mb-2">
-            <i class="fa fa-location-arrow"></i>
+            <i className="fa fa-location-arrow"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.address}</span>
           </p>
           <p className="mb-2">
@@ -62,23 +62,31 @@ function CardForm(props) {
             <span style={{ marginLeft: "10px" }}>{modalInfo.date}</span>
           </p>
           <p className="mb-2">
-            <i class="fa fa-user-circle-o"></i>
+            <i className="fa fa-user-circle-o"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.gender}</span>
           </p>
-          {/* <p className="mb-2">
-            <i class="fa fa-cc"></i>
-            <span style={{ marginLeft: "10px" }}>
-              {modalInfo.userinfo.languages.join(", ")}
-            </span>
-          </p> */}
+          {modalInfo.hobbies.length > 1 ? (
+            <p className="mb-2">
+              <i className="fa fa-cc"></i>
+              <span style={{ marginLeft: "10px" }}>
+                {modalInfo.hobbies.join(", ")}
+              </span>
+            </p>
+          ) : (
+            <p className="mb-2">
+              <i className="fa fa-cc"></i>
+              <span style={{ marginLeft: "10px" }}>{modalInfo.hobbies}</span>
+            </p>
+          )}
+
           <hr />
           <h5>Other Details</h5>
           <p className="mb-2">
-            <i class="fa fa-graduation-cap"></i>
+            <i className="fa fa-graduation-cap"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.college}</span>
           </p>
           <p className="mb-2">
-            <i class="fa fa-id-card-o"></i>
+            <i className="fa fa-id-card-o"></i>
             <span style={{ marginLeft: "10px" }}>{modalInfo.shortbio}</span>
           </p>
           <p className="mb-2">
@@ -90,12 +98,14 @@ function CardForm(props) {
     );
   };
 
+  // Method for deleting particular user from localStorage
   const itemSelect = (index) => {
     userList.splice(index, 1);
     localStorage.setItem("data", JSON.stringify(userList));
     navigate("/userlist");
   };
 
+  // Method for deleting all users in localStorage
   const handleOnClear = () => {
     localStorage.setItem("data", JSON.stringify([]));
     navigate("/userlist");
@@ -109,7 +119,7 @@ function CardForm(props) {
     <div>
       {userList.length == 0 ? (
         <h1 className="text-white msg-space p-5">
-          No user messages as of now!
+          No users registered as of now!
         </h1>
       ) : (
         <div className="form-check form-switch">
@@ -124,6 +134,7 @@ function CardForm(props) {
         </div>
       )}
       {toggle ? (
+        // Table Layout UI
         <div
           className="row pt-3 pb-5"
           style={{ width: "100%", marginLeft: "0" }}
@@ -136,11 +147,11 @@ function CardForm(props) {
             ""
           )}
           <div
-            class="container table-responsive"
+            className="container table-responsive"
             style={{ paddingLeft: "0px" }}
           >
-            <table class="table table-striped table-hover table-light">
-              <thead class="">
+            <table className="table table-striped table-hover table-light">
+              <thead className="">
                 <tr className="text-start">
                   <th scope="col">#</th>
                   <th scope="col">Name</th>
@@ -148,7 +159,6 @@ function CardForm(props) {
                   <th scope="col">Gender</th>
                   <th scope="col">Address</th>
                   <th scope="col">College</th>
-                  {/* <th scope="col">Hobbies</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -168,14 +178,6 @@ function CardForm(props) {
                       <td>{user.gender}</td>
                       <td>{user.address}</td>
                       <td>{user.college}</td>
-                      {/* <td>{user.userinfo.languages.join(", ")}</td> */}
-                      {/* <td
-                        onClick={() => {
-                          itemSelect(index);
-                        }}
-                      >
-                        <i className="fa fa-trash"></i>
-                      </td> */}
                     </tr>
                   );
                 })}
@@ -200,6 +202,7 @@ function CardForm(props) {
           )}
         </div>
       ) : (
+        // Card Layout UI
         <div
           className="row pt-4 pb-5"
           style={{ width: "100%", marginLeft: "0" }}
@@ -215,7 +218,7 @@ function CardForm(props) {
             <div
               className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12-4 mt-4"
               key={index}
-              // style={{ marginRight: "1rem" }}
+              style={{ cursor: "pointer" }}
             >
               <div
                 className="card"
@@ -246,12 +249,17 @@ function CardForm(props) {
                     <i className="fa fa-graduation-cap"></i>
                     <span style={style}>{user.college}</span>
                   </h6>
-                  {/* <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
-                    <i class="fa fa-cc"></i>
-                    <span style={style}>
-                      {user.userinfo.languages.join(", ")}
-                    </span>
-                  </h6> */}
+                  {user.hobbies.length > 1 ? (
+                    <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
+                      <i className="fa fa-cc"></i>
+                      <span style={style}>{user.hobbies.join(",")}</span>
+                    </h6>
+                  ) : (
+                    <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
+                      <i className="fa fa-cc"></i>
+                      <span style={style}>{user.hobbies}</span>
+                    </h6>
+                  )}
                 </div>
               </div>
               <h6
@@ -259,7 +267,6 @@ function CardForm(props) {
                 onClick={() => {
                   itemSelect(index);
                 }}
-                style={{ cursor: "pointer" }}
               >
                 <i className="fa fa-trash"></i>
                 <span style={style}>Delete Item?</span>
@@ -287,4 +294,4 @@ function CardForm(props) {
   );
 }
 
-export default CardForm;
+export default CardTabelForm;
