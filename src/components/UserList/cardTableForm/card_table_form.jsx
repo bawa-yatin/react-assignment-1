@@ -4,11 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import "./card_table_form.css";
 
 function CardTabelForm(props) {
-  let userList = JSON.parse(localStorage.getItem("data") || "[]");
+  let userList = JSON.parse(localStorage.getItem("data") || "[]").reverse();
   // Sorting data in descending order
-  userList.sort(function (x, y) {
-    return x == y ? 0 : x > y ? 1 : -1;
-  });
+  // userList.sort(function (x, y) {
+  //   return x == y ? 0 : x > y ? 1 : -1;
+  // });
 
   const navigate = useNavigate();
 
@@ -124,14 +124,29 @@ function CardTabelForm(props) {
         </h1>
       ) : (
         <div className="form-check form-switch">
-          <input
-            className="form-check-input"
-            type="checkbox"
-            role="switch"
-            id="flexSwitchCheckChecked"
-            onClick={toggler}
-          />
-          <span className="text-white fw-bold">Switch to Table Layout!</span>
+          <label
+            class="form-check-label text-white fw-bold"
+            for="flexSwitchCheckDefault"
+            style={{ marginRight: "10px" }}
+          >
+            Card Layout
+          </label>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              role="switch"
+              id="flexSwitchCheckDefault"
+              onClick={toggler}
+            />
+            <label
+              class="form-check-label text-white fw-bold"
+              for="flexSwitchCheckDefault"
+            >
+              Table Layout
+            </label>
+          </div>
+          {/* <span className="text-white fw-bold">Table Layout!</span> */}
         </div>
       )}
       {toggle ? (
@@ -253,7 +268,7 @@ function CardTabelForm(props) {
                   {user.hobbies.length > 1 ? (
                     <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
                       <i className="fa fa-cc"></i>
-                      <span style={style}>{user.hobbies.join(",")}</span>
+                      <span style={style}>{user.hobbies.join(", ")}</span>
                     </h6>
                   ) : (
                     <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>

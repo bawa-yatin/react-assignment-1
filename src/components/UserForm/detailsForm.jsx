@@ -8,6 +8,7 @@ import moment from "moment";
 function DetailsForm(props) {
   const [data_x, setData_x] = useState([]);
 
+  // For holding form data
   let [name, setname] = useState("");
   let [date, setdate] = useState("");
   let [address, setaddress] = useState("");
@@ -15,16 +16,37 @@ function DetailsForm(props) {
   let [shortbio, setshortbio] = useState("");
   let [longbio, setlongbio] = useState("");
   let [selected, setSelected] = useState("");
+  let [country, setCountry] = useState("");
   let [college, setCollege] = useState("");
+
   const [checked, setChecked] = useState(false);
+  const [otherStr, setStr] = useState("");
+
   const [hobbies, setHobbies] = useState([]);
-  const [extra, setExtra] = useState("");
   const [success_msg, setSuccessMsg] = useState("");
+
+  const [formErrors, setFormErrors] = useState({});
+
+  const gender_option = ["Male", "Female", "Other"];
+  const hobby_options = [
+    "Reading",
+    "Gaming",
+    "Travelling",
+    "Drawing",
+    "Gardening",
+    "Cycling",
+  ];
 
   let all_colleges = [];
   let options = null;
   let country_options = [];
   let country_list = null;
+
+  const styles = {
+    error_msg: {
+      opacity: "0.7",
+    },
+  };
 
   // creating list of countries
   const listCountry = () => {
@@ -53,9 +75,10 @@ function DetailsForm(props) {
   useEffect(() => listCountry(), []);
 
   // For retrieving colleges based on country selected
-  const changeSelectOptionHandler = (event) => {
+  const changeSelectOptionHandler = (e) => {
+    setCountry(e.target.value);
     services
-      .getCollegesDropdown(event.target.value, "")
+      .getCollegesDropdown(e.target.value, "")
       .then((response) => {
         let res = response.data;
         res.map((result) => {
@@ -81,15 +104,13 @@ function DetailsForm(props) {
     if (checked) {
       setHobbies([...hobbies, value]);
     } else {
-      setHobbies(hobbies.filter((hobbie) => hobbie !== value));
+      setHobbies(hobbies.filter((hobbies) => hobbies !== value));
     }
   };
 
   // For handling input from "others" checkbox
-  const handleInput = (e) => {
-    const { value } = e.target;
-    setExtra(value);
-    setHobbies([...hobbies, extra]);
+  const handleOthertextEvent = (event) => {
+    setStr(event.target.value);
   };
 
   const setEmpty = () => {
@@ -102,6 +123,8 @@ function DetailsForm(props) {
     setSelected("");
     setCollege("");
     setHobbies([]);
+    setStr("");
+    setChecked(false);
   };
 
   const setLocalstorage = (ele) => {
@@ -127,11 +150,82 @@ function DetailsForm(props) {
       gender: gender,
       shortbio: shortbio,
       longbio: longbio,
+      country: country,
       college: college,
       hobbies: hobbies,
     };
-    setEmpty();
-    setLocalstorage(user);
+
+    const validationErrors = formValidation(user);
+    const noErrors = Object.keys(validationErrors).length === 0;
+    setFormErrors(validationErrors);
+    if (noErrors) {
+      setEmpty();
+      setLocalstorage(user);
+    } else {
+      console.log("errors try again");
+    }
+  };
+
+  const formValidation = (values) => {
+    const errors = {};
+
+    // Name Validations
+    if (!values.name) {
+      errors.name = "Username is required";
+    } else if (values.name.trim().length < 4) {
+      errors.name = "Username too short!";
+    } else if (values.name.trim().length > 15) {
+      errors.name = "Username too long!";
+    }
+
+    // Date Validation
+    if (!values.date) {
+      errors.date = "Date of Birth is required";
+    }
+
+    // Address Validations
+    if (!values.address) {
+      errors.address = "Address is required";
+    } else if (values.address.trim().length < 10) {
+      errors.address = "Address too short!";
+    } else if (values.address.trim().length > 25) {
+      errors.address = "Address too long!";
+    }
+
+    // Gender Validation
+    if (!values.gender) {
+      errors.gender = "Select a gender";
+    }
+
+    // Country Validation
+    if (!values.country) {
+      errors.country = "Select a country";
+    }
+
+    // College Validation
+    if (!values.college) {
+      errors.college = "Select a college";
+    }
+
+    // Short Bio Validations
+    if (!values.shortbio) {
+      errors.shortbio = "Short bio required";
+    } else if (values.shortbio.trim().length < 35) {
+      errors.shortbio = "Bio too short!";
+    } else if (values.shortbio.trim().length > 70) {
+      errors.shortbio = "Bio too long!";
+    }
+
+    // Long Bio Validations
+    if (!values.longbio) {
+      errors.longbio = "Long bio required";
+    } else if (values.longbio.trim().length < 50) {
+      errors.longbio = "Bio too short!";
+    } else if (values.longbio.trim().length > 100) {
+      errors.longbio = "Bio too long!";
+    }
+
+    return errors;
   };
 
   return (
@@ -150,7 +244,11 @@ function DetailsForm(props) {
               <h3>User Registration</h3>
               <p>Fill in the data below.</p>
 
-              <form className="registration-form" onSubmit={handleSubmit}>
+              <form
+                className="registration-form"
+                onSubmit={handleSubmit}
+                noValidate
+              >
                 <div className="col-12">
                   <input
                     className="form-control"
@@ -160,8 +258,15 @@ function DetailsForm(props) {
                     value={name}
                     onChange={(e) => setname(e.target.value)}
                     autoComplete="off"
-                    required
+                    noValidate
                   />
+                  {formErrors.name ? (
+                    <div className="text-white" style={styles.error_msg}>
+                      {formErrors.name}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="col-12">
@@ -175,8 +280,15 @@ function DetailsForm(props) {
                       onChange={(e) => setdate(e.target.value)}
                       autoComplete="off"
                       max={moment().format("YYYY-MM-DD")}
-                      required
+                      noValidate
                     />
+                    {formErrors.date ? (
+                      <div className="text-white" style={styles.error_msg}>
+                        {formErrors.date}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 
@@ -189,8 +301,15 @@ function DetailsForm(props) {
                     value={address}
                     onChange={(e) => setaddress(e.target.value)}
                     autoComplete="off"
-                    required
+                    noValidate
                   />
+                  {formErrors.address ? (
+                    <div className="text-white" style={styles.error_msg}>
+                      {formErrors.address}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="col-12">
@@ -198,121 +317,87 @@ function DetailsForm(props) {
                     className="form-select mt-3"
                     style={{ color: "#000", fontWeight: "bold" }}
                     onChange={(e) => setgender(e.target.value)}
-                    required
+                    noValidate
                   >
                     <option selected disabled value={""}>
                       Gender
                     </option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
+                    {gender_option.map((gen) => {
+                      return <option value={gen}>{gen}</option>;
+                    })}
                   </select>
+                  {formErrors.gender ? (
+                    <div className="text-white" style={styles.error_msg}>
+                      {formErrors.gender}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="col-12">
-                  <select onChange={changeSelectOptionHandler} required>
+                  <select
+                    className="form-select"
+                    onChange={changeSelectOptionHandler}
+                    noValidate
+                  >
                     <option selected disabled value={""}>
                       Choose a Country
                     </option>
                     {country_list}
                   </select>
+                  {formErrors.country ? (
+                    <div className="text-white" style={styles.error_msg}>
+                      {formErrors.country}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="col-12">
-                  <select onChange={(e) => setCollege(e.target.value)} required>
+                  <select
+                    className="form-select"
+                    onChange={(e) => setCollege(e.target.value)}
+                    noValidate
+                  >
                     <option selected disabled value={""}>
                       Choose a College
                     </option>
                     {options}
                   </select>
+                  {formErrors.college ? (
+                    <div className="text-white" style={styles.error_msg}>
+                      {formErrors.college}
+                    </div>
+                  ) : (
+                    ""
+                  )}
                 </div>
 
                 <div className="col-12">
                   <h6 className="text-white mt-3">Hobbies</h6>
-                  <div className="checkbox-group" required>
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="hobbies"
-                        id="inlineCheckbox1"
-                        value="Reading"
-                        onChange={handleHobbies}
-                      />
-                      <label className="form-check-label" for="inlineCheckbox1">
-                        Reading
-                      </label>
-                    </div>
-
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="hobbies"
-                        id="inlineCheckbox1"
-                        value="Gaming"
-                        onChange={handleHobbies}
-                      />
-                      <label className="form-check-label" for="inlineCheckbox1">
-                        Gaming
-                      </label>
-                    </div>
-
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="hobbies"
-                        id="inlineCheckbox1"
-                        value="Travelling"
-                        onChange={handleHobbies}
-                      />
-                      <label className="form-check-label" for="inlineCheckbox1">
-                        Travelling
-                      </label>
-                    </div>
-
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="hobbies"
-                        id="inlineCheckbox1"
-                        value="Drawing"
-                        onChange={handleHobbies}
-                      />
-                      <label className="form-check-label" for="inlineCheckbox1">
-                        Drawing
-                      </label>
-                    </div>
-
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="hobbies"
-                        id="inlineCheckbox1"
-                        value="Gardening"
-                        onChange={handleHobbies}
-                      />
-                      <label className="form-check-label" for="inlineCheckbox1">
-                        Gardening
-                      </label>
-                    </div>
-
-                    <div className="form-check form-check-inline">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        name="hobbies"
-                        id="inlineCheckbox1"
-                        value="Cycling"
-                        onChange={handleHobbies}
-                      />
-                      <label className="form-check-label" for="inlineCheckbox1">
-                        Cycling
-                      </label>
-                    </div>
+                  <div className="checkbox-group" noValidate>
+                    {hobby_options.map((hobby) => {
+                      return (
+                        <div className="form-check form-check-inline">
+                          <input
+                            className="form-check-input"
+                            type="checkbox"
+                            name="hobbies"
+                            id="inlineCheckbox1"
+                            value={hobby}
+                            onChange={handleHobbies}
+                          />
+                          <label
+                            className="form-check-label"
+                            for="inlineCheckbox1"
+                          >
+                            {hobby}
+                          </label>
+                        </div>
+                      );
+                    })}
 
                     <div className="form-check">
                       <input
@@ -328,56 +413,75 @@ function DetailsForm(props) {
                         Other
                       </label>
 
-                      {/* <input
-                        className="inputRequest formContentElement"
-                        id="other_text"
-                        name="token"
-                        type="text"
-                        onChange={handleHobbies}
-                        style={{ display: "none" }}
-                      /> */}
-
                       {checked ? (
                         <input
                           className="inputRequest formContentElement"
                           name="token"
                           type="text"
-                          onChange={handleInput}
+                          onChange={handleOthertextEvent}
+                          onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                              var temp = hobbies;
+                              temp.push(otherStr);
+                            }
+                          }}
                         />
                       ) : (
                         <div></div>
                       )}
                     </div>
+
+                    {formErrors.hobbies ? (
+                      <div className="text-white" style={styles.error_msg}>
+                        {formErrors.hobbies}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 
                 <div className="col-12">
                   <div className="form-group">
                     <textarea
-                      className="form-control mt-3"
+                      className="form-control mt-3 mb-0"
                       rows="2"
                       placeholder="Write a short bio"
                       name="short_bio"
                       value={shortbio}
                       onChange={(e) => setshortbio(e.target.value)}
                       autoComplete="off"
-                      required
+                      noValidate
                     ></textarea>
+                    {formErrors.shortbio ? (
+                      <div className="text-white mt-1" style={styles.error_msg}>
+                        {formErrors.shortbio}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 
                 <div className="col-12">
                   <div className="form-group">
                     <textarea
-                      className="form-control mt-3"
+                      className="form-control mt-3 mb-0"
                       rows="3"
                       placeholder="Write a long bio"
                       name="long_bio"
                       value={longbio}
                       onChange={(e) => setlongbio(e.target.value)}
                       autoComplete="off"
-                      required
+                      noValidate
                     ></textarea>
+                    {formErrors.longbio ? (
+                      <div className="text-white mt-1" style={styles.error_msg}>
+                        {formErrors.longbio}
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </div>
                 </div>
 
