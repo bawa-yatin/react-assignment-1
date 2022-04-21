@@ -5,10 +5,6 @@ import "./card_table_form.css";
 
 function CardTabelForm(props) {
   let userList = JSON.parse(localStorage.getItem("data") || "[]").reverse();
-  // Sorting data in descending order
-  // userList.sort(function (x, y) {
-  //   return x == y ? 0 : x > y ? 1 : -1;
-  // });
 
   const navigate = useNavigate();
 

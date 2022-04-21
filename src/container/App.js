@@ -6,12 +6,15 @@ import Navbar from "../components/Navbar/navbar";
 import DetailsForm from "../components/UserForm/detailsForm";
 import UserList from "../components/UserList/userDetails";
 import CollegeList from "../components/College/collegeSearch";
+import Sidebar from "../components/Navbar/sidebar";
+import Footer from "../components/Footer/footer";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Navbar app_name="User Domain" />
+        <Sidebar footer_component={<Footer />} />
+        {/* <Navbar app_name="User Domain" /> */}
         <Routes>
           <Route
             path="/"

@@ -1,0 +1,18 @@
+.offcanvas-start {
+    width: 250px !important;
+}
+
+.navbar-toggler {
+    margin-right: 0 !important;
+}
+
+.nav-link:after {
+    display:block;
+    content: '';
+    border-bottom: solid 3px #019fb6;  
+    transform: scaleX(0);  
+    width: 50%;
+    transition: transform 250ms ease-in-out;
+}
+
+.nav-link:hover:after { transform: scaleX(1); width: 50%; }

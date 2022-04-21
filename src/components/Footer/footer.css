@@ -1,8 +1,6 @@
 .social-icons {
     font-size: 22px;
     cursor: pointer;
-    float: right;
-    padding: 0.5rem 0.7rem;
 }
 
 .icon-style {
@@ -13,26 +11,11 @@
 }
 
 .icon-style:hover {
-    color: #fec503 !important;
+    color: #019fb6 !important;
 }
 
 .copyright-text {
     float: left;
     opacity: 0.8;
     margin: 1rem !important;
-}
-
-@media screen and (max-width: 500px) {
-    .copyright-text {
-        float: none;
-        margin: 0.7rem !important;
-    }
-
-    .social-icons {
-        float: none;
-    }
-
-    .social-icons {
-        padding: 0 0 0.5rem 0 !important;
-    }
 }
