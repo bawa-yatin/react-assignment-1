@@ -1,7 +1,8 @@
 // Contact Section
 import { React, useEffect, useState } from "react";
 import "./detailsForm.css";
-import * as services from "../../services/dropdown";
+// import * as services from "../../services/dropdown";
+import * as services from "../../services/index";
 import axios from "axios";
 import moment from "moment";
 

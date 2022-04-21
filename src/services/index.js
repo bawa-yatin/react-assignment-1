@@ -6,3 +6,7 @@ export const getCollegesAPI = (collegeName, country) => {
     `${URL.baseURL}${collegeName}${country ? "&country=" + country : ""}`
   );
 };
+
+export const getCollegesDropdown = (country) => {
+  return axios.get(`${URL.getColleges}${country}`);
+};
