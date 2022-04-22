@@ -73,7 +73,7 @@
   background-color: #fff;
   font-size: 15px;
   font-weight: 300;
-  color: #000;
+  color: gray;
   -webkit-transition: all 0.3s ease;
   transition: all 0.3s ease;
   margin-top: 16px;
@@ -101,8 +101,7 @@
 }
 
 ::placeholder { 
-	color: #000 !important;
-	opacity: 1;
+	color: rgb(128, 128, 128) !important;
 	font-weight: bold;
   }
 

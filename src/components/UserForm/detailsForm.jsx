@@ -276,7 +276,7 @@ function DetailsForm(props) {
                       type="date"
                       className="form-control mt-3"
                       name="date"
-                      style={{ color: "#000", fontWeight: "bold" }}
+                      style={{ fontWeight: "bold" }}
                       value={date}
                       onChange={(e) => setdate(e.target.value)}
                       autoComplete="off"
@@ -316,7 +316,7 @@ function DetailsForm(props) {
                 <div className="col-12">
                   <select
                     className="form-select mt-3"
-                    style={{ color: "#000", fontWeight: "bold" }}
+                    style={{ fontWeight: "bold" }}
                     onChange={(e) => setgender(e.target.value)}
                     noValidate
                   >

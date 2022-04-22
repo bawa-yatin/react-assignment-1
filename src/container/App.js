@@ -16,13 +16,11 @@ function App() {
         <Sidebar footer_component={<Footer />} />
         {/* <Navbar app_name="User Domain" /> */}
         <Routes>
+          <Route path="/" element={<DetailsForm title="Registration" />} />
           <Route
-            path="/"
-            element={
-              <DetailsForm title="Registration" overlap_title="User Details" />
-            }
+            path="userlist"
+            element={<UserList title="Registered Users" />}
           />
-          <Route path="userlist" element={<UserList title="User Messages" />} />
           <Route path="colleges" element={<CollegeList />} />
 
           <Route path={"*"} element={<Navigate replace to={"/"} />} />

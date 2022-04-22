@@ -1,6 +1,16 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
+import {
+  FaTrashAlt,
+  FaAddressCard,
+  FaBirthdayCake,
+  FaUserTag,
+  FaRegStickyNote,
+  FaStickyNote,
+  FaUniversity,
+  FaVolleyballBall,
+} from "react-icons/fa";
 import "./card_table_form.css";
 
 function CardTabelForm(props) {
@@ -51,27 +61,27 @@ function CardTabelForm(props) {
         <Modal.Body>
           <h5>User Details</h5>
           <p className="mb-2">
-            <i className="fa fa-location-arrow"></i>
+            <FaAddressCard />
             <span style={{ marginLeft: "10px" }}>{modalInfo.address}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-birthday-cake"></i>
+            <FaBirthdayCake />
             <span style={{ marginLeft: "10px" }}>{modalInfo.date}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-user-circle-o"></i>
+            <FaUserTag />
             <span style={{ marginLeft: "10px" }}>{modalInfo.gender}</span>
           </p>
           {modalInfo.hobbies.length > 1 ? (
             <p className="mb-2">
-              <i className="fa fa-cc"></i>
+              <FaVolleyballBall />
               <span style={{ marginLeft: "10px" }}>
                 {modalInfo.hobbies.join(", ")}
               </span>
             </p>
           ) : (
             <p className="mb-2">
-              <i className="fa fa-cc"></i>
+              <FaVolleyballBall />
               <span style={{ marginLeft: "10px" }}>{modalInfo.hobbies}</span>
             </p>
           )}
@@ -79,15 +89,15 @@ function CardTabelForm(props) {
           <hr />
           <h5>Other Details</h5>
           <p className="mb-2">
-            <i className="fa fa-graduation-cap"></i>
+            <FaUniversity />
             <span style={{ marginLeft: "10px" }}>{modalInfo.college}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-id-card-o"></i>
+            <FaStickyNote />
             <span style={{ marginLeft: "10px" }}>{modalInfo.shortbio}</span>
           </p>
           <p className="mb-2">
-            <i className="fa fa-address-card"></i>
+            <FaRegStickyNote />
             <span style={{ marginLeft: "10px" }}>{modalInfo.longbio}</span>
           </p>
         </Modal.Body>
@@ -110,6 +120,8 @@ function CardTabelForm(props) {
 
   const style = {
     marginLeft: "10px",
+    position: "relative",
+    top: "3px",
   };
 
   return (
@@ -121,28 +133,27 @@ function CardTabelForm(props) {
       ) : (
         <div className="form-check form-switch">
           <label
-            class="form-check-label text-white fw-bold"
+            className="form-check-label text-white fw-bold"
             for="flexSwitchCheckDefault"
             style={{ marginRight: "10px" }}
           >
             Card Layout
           </label>
-          <div class="form-check form-switch">
+          <div className="form-check form-switch">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               role="switch"
               id="flexSwitchCheckDefault"
               onClick={toggler}
             />
             <label
-              class="form-check-label text-white fw-bold"
+              className="form-check-label text-white fw-bold"
               for="flexSwitchCheckDefault"
             >
               Table Layout
             </label>
           </div>
-          {/* <span className="text-white fw-bold">Table Layout!</span> */}
         </div>
       )}
       {toggle ? (
@@ -215,6 +226,7 @@ function CardTabelForm(props) {
         </div>
       ) : (
         // Card Layout UI
+
         <div
           className="row pt-4 pb-5"
           style={{ width: "100%", marginLeft: "0" }}
@@ -228,59 +240,86 @@ function CardTabelForm(props) {
           )}
           {userList.map((user, index) => (
             <div
-              className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12-4 mt-4"
+              class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12 mt-4"
               key={index}
               style={{ cursor: "pointer" }}
             >
               <div
-                className="card"
+                class="profile-card text-center"
                 id={index}
                 onClick={() => {
                   rowSelect(index);
                 }}
                 style={{ border: "none" }}
               >
-                <div className="card-body text-start">
-                  <h4 className="card-title mb-3">
-                    <i className="fa fa-user"></i>
-                    <span style={style}>{user.name}</span>
-                  </h4>
-                  <h6 className="card-subtitle mb-2">
-                    <i className="fa fa-birthday-cake"></i>
-                    <span style={style}>{user.date}</span>
-                  </h6>
-                  <h6 className="card-text mb-2">
-                    <i className="fa fa-user-circle"></i>
-                    <span style={style}>{user.gender}</span>
-                  </h6>
-                  <h6 className="card-text mb-2">
-                    <i className="fa fa-address-card"></i>
-                    <span style={style}>{user.address}</span>
-                  </h6>
-                  <h6 className="card-text mb-2">
-                    <i className="fa fa-graduation-cap"></i>
-                    <span style={style}>{user.college}</span>
-                  </h6>
-                  {user.hobbies.length > 1 ? (
-                    <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
-                      <i className="fa fa-cc"></i>
-                      <span style={style}>{user.hobbies.join(", ")}</span>
-                    </h6>
-                  ) : (
-                    <h6 className="card-text" style={{ lineHeight: "1.5rem" }}>
-                      <i className="fa fa-cc"></i>
-                      <span style={style}>{user.hobbies}</span>
-                    </h6>
-                  )}
+                {user.gender === "Male" ? (
+                  <img
+                    src="https://www.doesport.co.uk/wp-content/uploads/2017/11/profile-icon-male-avatar-portrait-casual-person-silhouette-face-flat-design-vector-illustration-58249394.jpg"
+                    class="img img-responsive"
+                    style={{ width: "100%" }}
+                  />
+                ) : (
+                  <img
+                    src="https://i.pinimg.com/474x/9a/74/63/9a7463417fbade000490782c75ad1598.jpg"
+                    class="img img-responsive"
+                    style={{ width: "100%" }}
+                  />
+                )}
+
+                <div class="profile-content">
+                  <div class="profile-name">
+                    <h4 style={{ marginBottom: "0.2rem" }}>{user.name}</h4>
+                    <p>{user.country}</p>
+                  </div>
+                  <div class="profile-description px-0 py-2">
+                    {user.shortbio}
+                  </div>
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="profile-overview">
+                        <p className="mb-1">ADDRESS</p>
+                        <h4 style={{ fontSize: "18px" }}>{user.address}</h4>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="profile-overview">
+                        <p className="mb-1">GENDER</p>
+                        <h4 style={{ fontSize: "18px" }}>{user.gender}</h4>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="profile-overview">
+                        <p className="mb-1">DATE</p>
+                        <h4 style={{ fontSize: "18px" }}>{user.date}</h4>
+                      </div>
+                    </div>
+                    {user.hobbies.length > 1 ? (
+                      <div class="col-6">
+                        <div class="profile-overview">
+                          <p className="mb-1">HOBBIES</p>
+                          <h4 style={{ fontSize: "18px" }}>
+                            {user.hobbies.join(", ")}
+                          </h4>
+                        </div>
+                      </div>
+                    ) : (
+                      <div class="col-6">
+                        <div class="profile-overview">
+                          <p className="mb-1">HOBBIES</p>
+                          <h4 style={{ fontSize: "18px" }}>{user.hobbies}</h4>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
               <h6
-                className="text-start mb-3 text-white mt-2"
+                className="text-start text-white"
                 onClick={() => {
                   itemSelect(index);
                 }}
               >
-                <i className="fa fa-trash"></i>
+                <FaTrashAlt />
                 <span style={style}>Delete Item?</span>
               </h6>
             </div>

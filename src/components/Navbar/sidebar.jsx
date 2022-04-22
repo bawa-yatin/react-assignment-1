@@ -1,5 +1,6 @@
 import { Offcanvas, Nav, Navbar, Container } from "react-bootstrap";
 import { React } from "react";
+import { FaUsers, FaRegUser, FaRegListAlt, FaUniversity } from "react-icons/fa";
 import "./sidebar.css";
 
 function Sidebar(props) {
@@ -7,10 +8,7 @@ function Sidebar(props) {
     <Navbar bg="light" expand={false}>
       <Container fluid>
         <Navbar.Brand className="navbar-brand" href="/">
-          <i
-            className="fa fa-users animated bounce infinite"
-            style={{ fontSize: "30px" }}
-          ></i>
+          <FaUsers style={{ fontSize: "35px" }} />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
         <Navbar.Offcanvas
@@ -24,32 +22,26 @@ function Sidebar(props) {
               id="offcanvasNavbarLabel"
               style={{ borderBottom: "solid 3px #019fb6" }}
             >
-              <i
-                className="fa fa-users"
-                aria-hidden="true"
-                style={{ marginRight: "10px" }}
-              ></i>
+              <FaUsers style={{ marginRight: "10px", fontSize: "25px" }} />
               <span>User Domain</span>
             </Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body className="px-3 py-1">
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Nav.Link href="/" className="text-dark fw-bold">
-                <i
-                  className="fa fa-sticky-note"
-                  style={{ marginRight: "5px" }}
-                ></i>
+                <FaRegUser style={{ marginRight: "5px", fontSize: "15px" }} />
                 User Form
               </Nav.Link>
               <Nav.Link href="/userlist" className="text-dark fw-bold">
-                <i className="fa fa-th-list" style={{ marginRight: "5px" }}></i>
+                <FaRegListAlt
+                  style={{ marginRight: "5px", fontSize: "15px" }}
+                />
                 User List
               </Nav.Link>
               <Nav.Link href="/colleges" className="text-dark fw-bold">
-                <i
-                  className="fa fa-graduation-cap"
-                  style={{ marginRight: "5px" }}
-                ></i>
+                <FaUniversity
+                  style={{ marginRight: "5px", fontSize: "15px" }}
+                />
                 Colleges
               </Nav.Link>
             </Nav>

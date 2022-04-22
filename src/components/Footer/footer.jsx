@@ -1,5 +1,11 @@
 // Footer Section
 import React from "react";
+import {
+  FaFacebookSquare,
+  FaInstagram,
+  FaTwitter,
+  FaLinkedin,
+} from "react-icons/fa";
 import "./footer.css";
 
 function Footer(props) {
@@ -20,7 +26,7 @@ function Footer(props) {
                 className="text-dark icon-style"
                 style={{ marginRight: "12px" }}
               >
-                <i className="fa fa-facebook"></i>
+                <FaFacebookSquare />
               </a>
               <a
                 href="https://www.instagram.com/"
@@ -28,7 +34,7 @@ function Footer(props) {
                 className="text-dark icon-style"
                 style={{ marginRight: "12px" }}
               >
-                <i className="fa fa-instagram"></i>
+                <FaInstagram />
               </a>
               <a
                 href="https://www.twitter.com/"
@@ -36,7 +42,7 @@ function Footer(props) {
                 className="text-dark icon-style"
                 style={{ marginRight: "12px" }}
               >
-                <i className="fa fa-twitter"></i>
+                <FaTwitter />
               </a>
               <a
                 href="https://www.linkedin.com/"
@@ -44,7 +50,7 @@ function Footer(props) {
                 className="text-dark icon-style"
                 style={{ marginRight: "12px" }}
               >
-                <i className="fa fa-linkedin"></i>
+                <FaLinkedin />
               </a>
             </div>
           </div>
